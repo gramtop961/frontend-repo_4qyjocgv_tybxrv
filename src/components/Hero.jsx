@@ -1,11 +1,97 @@
+import { useEffect, useRef } from 'react'
 import { motion, useScroll, useTransform } from 'framer-motion'
 import { Sparkles, Rocket, Code2, Monitor } from 'lucide-react'
 
 export default function Hero() {
   const { scrollYProgress } = useScroll()
   const scale = useTransform(scrollYProgress, [0, 0.3], [1, 0.9])
-  const y = useTransform(scrollYProgress, [0, 0.3], [0, 60])
-  const opacity = useTransform(scrollYProgress, [0, 0.3], [1, 0.6])
+  const y = useTransform(scrollYProgress, [0, 0.3], [0, 40])
+  const opacity = useTransform(scrollYProgress, [0, 0.3], [1, 0.7])
+
+  const canvasRef = useRef(null)
+
+  // Lightweight GPU-friendly starfield (2D canvas with parallax feel)
+  useEffect(() => {
+    const canvas = canvasRef.current
+    if (!canvas) return
+    const ctx = canvas.getContext('2d', { alpha: true })
+
+    let dpr = Math.min(window.devicePixelRatio || 1, 2)
+    let w = 0, h = 0
+    let rafId
+
+    const STAR_COUNT = 220
+    const stars = []
+
+    const resize = () => {
+      w = canvas.clientWidth
+      h = canvas.clientHeight
+      canvas.width = Math.floor(w * dpr)
+      canvas.height = Math.floor(h * dpr)
+      ctx.scale(dpr, dpr)
+    }
+
+    const init = () => {
+      stars.length = 0
+      for (let i = 0; i < STAR_COUNT; i++) {
+        stars.push({
+          x: Math.random() * w,
+          y: Math.random() * h,
+          z: Math.random() * 0.8 + 0.2, // depth
+          r: Math.random() * 1.6 + 0.2,
+          vx: (Math.random() - 0.5) * 0.05,
+          vy: (Math.random() - 0.5) * 0.05,
+        })
+      }
+    }
+
+    let tiltX = 0, tiltY = 0
+    const onMove = (e) => {
+      const rect = canvas.getBoundingClientRect()
+      const mx = (e.clientX - rect.left) / rect.width - 0.5
+      const my = (e.clientY - rect.top) / rect.height - 0.5
+      tiltX = mx
+      tiltY = my
+    }
+
+    const step = () => {
+      ctx.clearRect(0, 0, w, h)
+      for (const s of stars) {
+        // Parallax drift
+        s.x += s.vx + tiltX * s.z * 0.6
+        s.y += s.vy + tiltY * s.z * 0.6
+        if (s.x < -10) s.x = w + 10
+        if (s.x > w + 10) s.x = -10
+        if (s.y < -10) s.y = h + 10
+        if (s.y > h + 10) s.y = -10
+
+        const alpha = 0.35 + s.z * 0.4
+        ctx.beginPath()
+        ctx.arc(s.x, s.y, s.r * s.z, 0, Math.PI * 2)
+        ctx.fillStyle = `rgba(255,255,255,${alpha})`
+        ctx.fill()
+      }
+      rafId = requestAnimationFrame(step)
+    }
+
+    const onResize = () => {
+      resize()
+      init()
+    }
+
+    resize()
+    init()
+    step()
+
+    window.addEventListener('resize', onResize)
+    window.addEventListener('mousemove', onMove)
+
+    return () => {
+      cancelAnimationFrame(rafId)
+      window.removeEventListener('resize', onResize)
+      window.removeEventListener('mousemove', onMove)
+    }
+  }, [])
 
   const floating = {
     animate: {
@@ -17,21 +103,35 @@ export default function Hero() {
 
   return (
     <section className="relative min-h-[100svh] w-full bg-black text-white overflow-hidden">
-      {/* Background grid glow */}
-      <div className="pointer-events-none absolute inset-0 opacity-40" style={{
-        backgroundImage: `radial-gradient(circle at 20% 10%, rgba(120,119,198,.15), transparent 35%), radial-gradient(circle at 80% 30%, rgba(59,130,246,.2), transparent 40%), radial-gradient(circle at 50% 80%, rgba(236,72,153,.12), transparent 40%)`
-      }} />
+      {/* Starfield canvas */}
+      <canvas ref={canvasRef} className="pointer-events-none absolute inset-0 w-full h-full" />
 
-      {/* Parallax stars */}
+      {/* Foreground content */}
       <motion.div style={{ scale, y, opacity }} className="relative h-full">
         <div className="mx-auto max-w-7xl px-6 pt-28 pb-16 md:pt-36 md:pb-24">
-          <motion.h1 className="text-5xl md:text-7xl font-black tracking-tight leading-[1.05]" initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.8, ease: 'easeOut' }}>
-            <span className="block bg-clip-text text-transparent bg-gradient-to-b from-white to-white/60">S16DIH</span>
-          </motion.h1>
-          <motion.p className="mt-5 max-w-2xl text-lg md:text-xl text-white/70" initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: 0.15, duration: 0.8, ease: 'easeOut' }}>
-            Building beautiful software that looks as good as it works.
-          </motion.p>
-
+          <div className="flex flex-col items-center text-center">
+            <img
+              src="https://cdn.discordapp.com/avatars/1400491046445777008/126bc184ac2879c483c272b6ac11f029.webp?size=1024"
+              alt="s16 logo"
+              className="w-16 h-16 md:w-20 md:h-20 rounded-2xl border border-white/10 object-cover mb-4"
+            />
+            <motion.h1
+              className="text-5xl md:text-7xl font-black tracking-tight leading-[1.05]"
+              initial={{ opacity: 0, y: 20 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.8, ease: 'easeOut' }}
+            >
+              <span className="block text-white">s16</span>
+            </motion.h1>
+            <motion.p
+              className="mt-5 max-w-2xl text-lg md:text-xl text-white/70"
+              initial={{ opacity: 0, y: 20 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ delay: 0.15, duration: 0.8, ease: 'easeOut' }}
+            >
+              Building beautiful software that looks as good as it works.
+            </motion.p>
+          </div>
         </div>
       </motion.div>
 

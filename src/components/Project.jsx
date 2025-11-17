@@ -19,7 +19,8 @@ export default function Project() {
           <div className="absolute inset-0 pointer-events-none bg-[radial-gradient(ellipse_at_center,rgba(0,0,0,0),rgba(0,0,0,0.6))]" />
         </motion.div>
 
-        <div className="mt-6 flex gap-3">
+        {/* Move the CTA lower to avoid overlap during scroll */}
+        <div className="mt-14 flex gap-3">
           <MagButton as="a" href="https://github.com/outbrowsed/syntralite21k" target="_blank">Open on GitHub</MagButton>
         </div>
       </div>

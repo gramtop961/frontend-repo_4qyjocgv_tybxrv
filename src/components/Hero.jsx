@@ -1,7 +1,25 @@
-import { useEffect, useRef } from 'react'
+import React, { useEffect, useRef, useState } from 'react'
 import { motion, useScroll, useTransform } from 'framer-motion'
 import { Sparkles, Rocket, Code2, Monitor } from 'lucide-react'
 import Spline from '@splinetool/react-spline'
+
+// Simple error boundary so external 3D embeds can never crash the page
+class ErrorBoundary extends React.Component {
+  constructor(props) {
+    super(props)
+    this.state = { hasError: false }
+  }
+  static getDerivedStateFromError() {
+    return { hasError: true }
+  }
+  componentDidCatch() {
+    // swallow errors from third-party embeds
+  }
+  render() {
+    if (this.state.hasError) return null
+    return this.props.children
+  }
+}
 
 export default function Hero() {
   const { scrollYProgress } = useScroll()
@@ -11,6 +29,9 @@ export default function Hero() {
   const tilt = useTransform(scrollYProgress, [0, 0.3], [0, 4])
 
   const canvasRef = useRef(null)
+
+  // Optional Spline scene URL via env; disabled by default if not provided
+  const [splineUrl, setSplineUrl] = useState(() => import.meta.env.VITE_SPLINE_URL || '')
 
   // Lightweight GPU-friendly starfield (2D canvas with parallax feel)
   useEffect(() => {
@@ -105,10 +126,14 @@ export default function Hero() {
 
   return (
     <section className="relative min-h-[100svh] w-full bg-black text-white overflow-hidden">
-      {/* Optional complementary Spline model behind content */}
-      <div className="pointer-events-none absolute inset-0 opacity-[0.15]">
-        <Spline scene="https://prod.spline.design/2r1y3Q1uC3WkL3j7/scene.splinecode" />
-      </div>
+      {/* Optional complementary Spline model behind content (safe-guarded) */}
+      {splineUrl ? (
+        <div className="pointer-events-none absolute inset-0 opacity-[0.15]">
+          <ErrorBoundary>
+            <Spline scene={splineUrl} />
+          </ErrorBoundary>
+        </div>
+      ) : null}
 
       {/* Starfield canvas */}
       <canvas ref={canvasRef} className="pointer-events-none absolute inset-0 w-full h-full" />

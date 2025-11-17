@@ -12,7 +12,7 @@
     --font-manrope: 'Manrope', system-ui, sans-serif;
   }
 
-  html { font-family: var(--font-sans); font-feature-settings: "rlig" 1, "calt" 1; }
+  html { font-family: var(--font-geist), var(--font-sans); font-feature-settings: "rlig" 1, "calt" 1; }
   body { @apply antialiased bg-black text-white; }
 }
 
@@ -22,4 +22,7 @@
     @apply bg-white/5 border border-white/10 backdrop-blur-md;
   }
   .ring-neon { box-shadow: 0 0 0 0 rgba(0,0,0,0), 0 0 40px -12px rgba(120,119,198,.45); }
+  .vignette {
+    background: radial-gradient(ellipse at center, rgba(0,0,0,0), rgba(0,0,0,0.65));
+  }
 }

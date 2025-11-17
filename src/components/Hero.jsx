@@ -1,12 +1,14 @@
 import { useEffect, useRef } from 'react'
 import { motion, useScroll, useTransform } from 'framer-motion'
 import { Sparkles, Rocket, Code2, Monitor } from 'lucide-react'
+import Spline from '@splinetool/react-spline'
 
 export default function Hero() {
   const { scrollYProgress } = useScroll()
   const scale = useTransform(scrollYProgress, [0, 0.3], [1, 0.9])
   const y = useTransform(scrollYProgress, [0, 0.3], [0, 40])
   const opacity = useTransform(scrollYProgress, [0, 0.3], [1, 0.7])
+  const tilt = useTransform(scrollYProgress, [0, 0.3], [0, 4])
 
   const canvasRef = useRef(null)
 
@@ -28,7 +30,7 @@ export default function Hero() {
       h = canvas.clientHeight
       canvas.width = Math.floor(w * dpr)
       canvas.height = Math.floor(h * dpr)
-      ctx.scale(dpr, dpr)
+      ctx.setTransform(dpr, 0, 0, dpr, 0, 0)
     }
 
     const init = () => {
@@ -103,11 +105,16 @@ export default function Hero() {
 
   return (
     <section className="relative min-h-[100svh] w-full bg-black text-white overflow-hidden">
+      {/* Optional complementary Spline model behind content */}
+      <div className="pointer-events-none absolute inset-0 opacity-[0.15]">
+        <Spline scene="https://prod.spline.design/2r1y3Q1uC3WkL3j7/scene.splinecode" />
+      </div>
+
       {/* Starfield canvas */}
       <canvas ref={canvasRef} className="pointer-events-none absolute inset-0 w-full h-full" />
 
       {/* Foreground content */}
-      <motion.div style={{ scale, y, opacity }} className="relative h-full">
+      <motion.div style={{ scale, y, opacity, rotateX: tilt }} className="relative h-full">
         <div className="mx-auto max-w-7xl px-6 pt-28 pb-16 md:pt-36 md:pb-24">
           <div className="flex flex-col items-center text-center">
             <img

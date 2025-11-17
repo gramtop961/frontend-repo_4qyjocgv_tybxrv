@@ -1,6 +1,6 @@
 import MagButton from './MagButton'
 import { motion } from 'framer-motion'
-import { Mail, Github, MessageSquare } from 'lucide-react'
+import { Github, MessageSquare } from 'lucide-react'
 
 export default function Contact() {
   return (
@@ -11,12 +11,11 @@ export default function Contact() {
         </motion.h3>
 
         <motion.div initial={{ opacity: 0 }} whileInView={{ opacity: 1 }} viewport={{ once: true }} transition={{ delay: 0.2, duration: 0.8 }} className="mt-8 flex flex-wrap items-center justify-center gap-4">
-          <MagButton as="a" href="mailto:hello@example.com"><Mail className="w-4 h-4 mr-2 inline-block"/> Email</MagButton>
-          <MagButton as="a" href="https://github.com/s16dih" target="_blank"><Github className="w-4 h-4 mr-2 inline-block"/> GitHub</MagButton>
-          <MagButton as="a" href="https://discord.com/users/" target="_blank"><MessageSquare className="w-4 h-4 mr-2 inline-block"/> Discord</MagButton>
+          <MagButton as="a" href="https://github.com/gustambolopez" target="_blank"><Github className="w-4 h-4 mr-2 inline-block"/> GitHub</MagButton>
+          <MagButton as="a" href="https://discord.com/users/mogolixzq" target="_blank"><MessageSquare className="w-4 h-4 mr-2 inline-block"/> Discord</MagButton>
         </motion.div>
 
-        <div className="pointer-events-none absolute inset-0 bg-[radial-gradient(400px_200px_at_50%_0%,rgba(120,119,198,0.18),transparent_60%)]" />
+        <div className="pointer-events-none absolute inset-0" />
       </div>
     </section>
   )

@@ -1,6 +1,6 @@
 import MagButton from './MagButton'
 import { motion } from 'framer-motion'
-import { Github, MessageSquare, Mail, ArrowRight } from 'lucide-react'
+import { Github, MessageSquare, ArrowRight } from 'lucide-react'
 
 export default function Contact() {
   return (
@@ -16,7 +16,7 @@ export default function Contact() {
           transition={{ duration: 0.7, ease: 'easeOut' }}
           className="text-center"
         >
-          <h3 className="text-3xl md:text-5xl font-black tracking-tight">
+          <h3 className="text-3xl md:5xl font-black tracking-tight">
             Let’s build something beautiful
           </h3>
           <p className="mt-4 text-white/70 max-w-2xl mx-auto">
@@ -39,9 +39,6 @@ export default function Contact() {
                 <p className="mt-2 text-white/60">Tell me about your product, timeline, and goals.</p>
               </div>
               <div className="flex flex-wrap items-center justify-center md:justify-end gap-3">
-                <MagButton as="a" href="mailto:work@sixteen.dev" target="_blank">
-                  <Mail className="w-4 h-4 mr-2 inline-block"/> Email
-                </MagButton>
                 <MagButton as="a" href="https://github.com/gustambolopez" target="_blank">
                   <Github className="w-4 h-4 mr-2 inline-block"/> GitHub
                 </MagButton>
@@ -53,12 +50,7 @@ export default function Contact() {
           </div>
         </motion.div>
 
-        {/* Micro footer */}
-        <div className="mt-10 flex items-center justify-center gap-2 text-white/40 text-sm">
-          <span>Built with motion & care</span>
-          <ArrowRight className="w-3.5 h-3.5" />
-          <span>s16</span>
-        </div>
+        {/* Micro footer removed as requested */}
       </div>
 
       {/* Decorative light sweeps */}

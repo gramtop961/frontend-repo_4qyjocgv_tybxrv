@@ -3,7 +3,7 @@ import { motion } from 'framer-motion'
 const quotes = [
   '“I judge a book by its cover because users do too.”',
   '“Beautiful interfaces create trust.”',
-  '“UX is the product — code is just the engine.”'
+  '“ui  is the product, code is just the engine.”'
 ]
 
 export default function Quotes() {

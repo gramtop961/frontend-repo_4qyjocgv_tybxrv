@@ -31,13 +31,6 @@ export default function ParallaxLayers() {
           background: 'repeating-linear-gradient(90deg, rgba(255,255,255,0.06) 0 2px, transparent 2px 12px)'
         }}/>
       </motion.div>
-
-      <div className="relative z-10 h-full flex items-end">
-        <div className="mx-auto max-w-6xl px-6 pb-24 text-white/80">
-          <h3 className="text-2xl md:text-3xl font-semibold">Depth Layers</h3>
-          <p className="mt-3 max-w-2xl text-white/60">Scroll to feel layers move at different speeds. The background grid has been removed for a purer OLED aesthetic.</p>
-        </div>
-      </div>
     </section>
   )
 }

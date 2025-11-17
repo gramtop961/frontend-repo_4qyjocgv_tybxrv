@@ -6,8 +6,8 @@ const skills = [
   { icon: Globe, label: 'HTML / CSS / JS', tip: 'Semantic, accessible, performant front-ends.' },
   { icon: Server, label: 'ExpressJS', tip: 'Minimal and robust NodeJS web framework.' },
   { icon: TerminalSquare, label: 'Fastify', tip: 'Fast and low-overhead NodeJS framework.' },
-  { icon: Layers, label: 'Modern UI', tip: 'Design systems, motion, and micro-interactions.' },
-  { icon: Zap, label: 'UX-first', tip: 'Every detail crafted for feel and clarity.' },
+  { icon: Layers, label: 'Modern Front end', tip: 'Design systems, motion, and micro-interactions.' },
+  { icon: Zap, label: 'ux prioritized', tip: 'Every detail crafted for feel and clarity.' },
 ]
 
 export default function Skills() {
@@ -15,8 +15,8 @@ export default function Skills() {
     <section className="relative py-24 md:py-32 bg-black text-white">
       <div className="mx-auto max-w-7xl px-6">
         <div className="mb-10">
-          <h2 className="text-2xl md:text-3xl font-semibold tracking-tight">Skillset — M H E M</h2>
-          <p className="text-white/60 mt-2">MongoDB • HTML/CSS/JS • Express • Fastify • Modern Front-end • UX-first</p>
+          <h2 className="text-2xl md:text-3xl font-semibold tracking-tight">Skillset MHEM</h2>
+          <p className="text-white/60 mt-2" style={{ fontFamily: 'var(--font-geist-mono)' }}>Mongodb • html/css/js • Express • Fastify • Modern Front end • ux prioritized</p>
         </div>
 
         <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-6 gap-4">

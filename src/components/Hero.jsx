@@ -145,7 +145,7 @@ export default function Hero() {
             <img
               src="https://cdn.discordapp.com/avatars/1400491046445777008/126bc184ac2879c483c272b6ac11f029.webp?size=1024"
               alt="s16 logo"
-              className="w-16 h-16 md:w-20 md:h-20 rounded-2xl border border-white/10 object-cover mb-4"
+              className="w-16 h-16 md:w-20 md:h-20 rounded-2xl object-cover mb-4 ring-neon shadow-[0_0_40px_rgba(255,255,255,0.08)]"
             />
             <motion.h1
               className="text-5xl md:text-7xl font-black tracking-tight leading-[1.05]"
@@ -182,6 +182,9 @@ export default function Hero() {
           <Monitor className="w-7 h-7 text-white/80" />
         </motion.div>
       </div>
+
+      {/* Seamless fade to next section to hide any hard borders */}
+      <div className="pointer-events-none absolute bottom-0 inset-x-0 h-40 bg-gradient-to-b from-transparent to-black" />
 
       {/* Subtle vignette */}
       <div className="pointer-events-none absolute inset-0 bg-[radial-gradient(ellipse_at_center,rgba(0,0,0,0),rgba(0,0,0,0.6))]" />

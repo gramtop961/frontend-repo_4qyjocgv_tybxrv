@@ -12,35 +12,14 @@
     --font-manrope: 'Manrope', system-ui, sans-serif;
   }
 
-  html {
-    font-family: var(--font-sans);
-    font-feature-settings: "rlig" 1, "calt" 1;
-  }
-
-  body {
-    @apply antialiased;
-  }
+  html { font-family: var(--font-sans); font-feature-settings: "rlig" 1, "calt" 1; }
+  body { @apply antialiased bg-black text-white; }
 }
 
-/* Custom utility classes for shadcn/ui patterns */
+/* OLED + Glass utilities */
 @layer utilities {
-  .animate-in {
-    animation-name: animateIn;
-    animation-duration: 350ms;
-    --tw-enter-opacity: initial;
-    --tw-enter-scale: initial;
-    --tw-enter-rotate: initial;
-    --tw-enter-translate-x: initial;
-    --tw-enter-translate-y: initial;
+  .glass {
+    @apply bg-white/5 border border-white/10 backdrop-blur-md;
   }
-
-  .animate-out {
-    animation-name: animateOut;
-    animation-duration: 350ms;
-    --tw-exit-opacity: initial;
-    --tw-exit-scale: initial;
-    --tw-exit-rotate: initial;
-    --tw-exit-translate-x: initial;
-    --tw-exit-translate-y: initial;
-  }
+  .ring-neon { box-shadow: 0 0 0 0 rgba(0,0,0,0), 0 0 40px -12px rgba(120,119,198,.45); }
 }

@@ -3,7 +3,6 @@ import Skills from './components/Skills'
 import Project from './components/Project'
 import Quotes from './components/Quotes'
 import Contact from './components/Contact'
-import ParallaxLayers from './components/ParallaxLayers'
 import CursorGlow from './components/CursorGlow'
 
 function App() {
@@ -13,7 +12,7 @@ function App() {
       <CursorGlow />
 
       <Hero />
-      <ParallaxLayers />
+      {/* Removed ParallaxLayers section to eliminate extra spacing and background lines */}
       <Skills />
       <Project />
       <Quotes />
